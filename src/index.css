@@ -79,7 +79,7 @@
     @apply border-sce-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-sce-background text-foreground;
   }
 }
 
