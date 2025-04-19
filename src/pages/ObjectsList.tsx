@@ -11,7 +11,7 @@ import ObjectCard from "@/components/ObjectCard";
 const ObjectsList: React.FC = () => {
   const [objects, setObjects] = React.useState<SCEObject[]>(getAllSCEObjects());
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [selectedClass, setSelectedClass] = React.useState<string>("");
+  const [selectedClass, setSelectedClass] = React.useState<string>("ALL");
 
   const filteredObjects = objects.filter(object => {
     const matchesSearch = (
@@ -20,7 +20,7 @@ const ObjectsList: React.FC = () => {
       object.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
     
-    const matchesClass = selectedClass ? object.objectClass === selectedClass : true;
+    const matchesClass = selectedClass === "ALL" ? true : object.objectClass === selectedClass;
     
     return matchesSearch && matchesClass;
   });
@@ -48,7 +48,7 @@ const ObjectsList: React.FC = () => {
                     <SelectValue placeholder="Все классы" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Все классы</SelectItem>
+                    <SelectItem value="ALL">Все классы</SelectItem>
                     <SelectItem value={ObjectClass.SAFE}>Безопасный</SelectItem>
                     <SelectItem value={ObjectClass.EUCLID}>Евклид</SelectItem>
                     <SelectItem value={ObjectClass.KETER}>Кетер</SelectItem>

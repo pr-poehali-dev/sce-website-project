@@ -11,7 +11,7 @@ import PostCard from "@/components/PostCard";
 const PostsList: React.FC = () => {
   const [posts, setPosts] = React.useState<Post[]>(getAllPosts());
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [selectedCategory, setSelectedCategory] = React.useState<string>("");
+  const [selectedCategory, setSelectedCategory] = React.useState<string>("ALL");
 
   const filteredPosts = posts.filter(post => {
     const matchesSearch = (
@@ -19,7 +19,7 @@ const PostsList: React.FC = () => {
       post.content.toLowerCase().includes(searchTerm.toLowerCase())
     );
     
-    const matchesCategory = selectedCategory ? post.category === selectedCategory : true;
+    const matchesCategory = selectedCategory === "ALL" ? true : post.category === selectedCategory;
     
     return matchesSearch && matchesCategory;
   });
@@ -47,7 +47,7 @@ const PostsList: React.FC = () => {
                     <SelectValue placeholder="Все категории" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">Все категории</SelectItem>
+                    <SelectItem value="ALL">Все категории</SelectItem>
                     <SelectItem value={PostCategory.NEWS}>Новости</SelectItem>
                     <SelectItem value={PostCategory.RESEARCH}>Исследования</SelectItem>
                     <SelectItem value={PostCategory.REPORT}>Отчеты</SelectItem>
